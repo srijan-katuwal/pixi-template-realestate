@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = window.tailwind || {};
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: '#b49e79',
+                    }
+                }
+            },
+            plugins: [
+                function ({ addUtilities }) {
+                    addUtilities({
+                        '.text-shadow-black': {
+                            'text-shadow': '0 1px 2px rgba(0, 0, 0, 0.25)',
+                        },
+                    });
+                }
+            ]
+        }
+    </script>
+
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <!-- Custom Style -->
+    <style>
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden max-w-[100vw]">
+    <section class="relative w-full overflow-hidden h-[80px] bg-black">
+        <nav class="absolute w-full z-20">
+            <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="self-center text-3xl font-semibold whitespace-nowrap text-white">PIXI</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-toggle" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-800 bg-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    aria-controls="navbar-default" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+
+                <!-- Menu -->
+                <div class="hidden w-full md:block md:w-auto transition-all duration-300 ease-in-out"
+                    id="navbar-default">
+                    <ul
+                        class="font-medium flex flex-col p-4 mt-4 bg-white rounded-lg shadow-lg md:p-0 md:mt-0 md:flex-row md:space-x-8 md:bg-transparent md:shadow-none">
+                        <li><a href="index.html"
+                                class="block py-2 px-2 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand md:text-white">Home</a>
+                        </li>
+                        <li><a href="about.html"
+                                class="block py-2 px-2 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand md:text-white">About</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="block py-2 px-2 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand md:text-white">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <section class="max-w-7xl mx-auto p-4">
+        <!-- Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-1 rounded-lg overflow-hidden">
+            <div class="md:col-span-3">
+                <img src="./images/gallery/images0.jpeg" alt="Main house"
+                    class="w-full h-[400px] object-cover rounded-l-lg">
+            </div>
+            <div class="col-span-2 grid grid-cols-2 gap-1 rounded-r-lg">
+                <img src="./images/gallery/image 3.png" class="w-full h-[198px] object-cover">
+                <img src="./images/gallery/image 4.png" class="w-full h-[198px] object-cover">
+                <img src="./images/gallery/image 5.png" class="w-full h-[198px] object-cover">
+                <div class="relative">
+                    <img src="./images/gallery/image 6.png" class="w-full h-[198px] object-cover">
+                    <button
+                        class="absolute inset-0 bg-black/50 text-white font-medium flex items-center justify-center">All
+                        photos</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4">
+        <!-- Property Info -->
+        <div class="mt-6 flex flex-col items-start lg:flex-row gap-8">
+            <!-- Left side -->
+            <div class="flex-1">
+                <div class="flex items-center space-x-6 text-gray-700 text-sm">
+                    <span class="flex">
+                        <i data-lucide="bed" class="w-5 h-5"></i> &nbsp; 4 Beds
+                    </span>
+                    <span class="flex"><i data-lucide="bath" class="w-5 h-5"></i> &nbsp; 3 Baths</span>
+                    <span class="flex"><i data-lucide="scan" class="w-5 h-5"></i> &nbsp; 2,380 sqft</span>
+                </div>
+                <h2 class="text-3xl font-bold mt-6">$1,240,000</h2>
+                <p class="text-gray-600 mt-1">123 Demo Street, Toronto, ON M1M 1M1</p>
+                <p class="text-gray-500 mt-1">Est. payment: $5,200/mo</p>
+
+                <!-- Stats -->
+                <div class="flex gap-4 mt-6 bg-white flex-wrap">
+                    <div class="p-6 w-[150px] border rounded-lg">
+                        <i data-lucide="dollar-sign" class="w-6 h-6 mb-3"></i>
+                        <p class="font-medium">$521</p>
+                        <p class="text-gray-500 text-sm">Price per sqft</p>
+                    </div>
+                    <div class="p-6 w-[150px] border rounded-lg">
+                        <i data-lucide="clock" class="w-6 h-6 mb-3"></i>
+                        <p class="font-medium">2023</p>
+                        <p class="text-gray-500 text-sm">Built in</p>
+                    </div>
+                    <div class="p-6 w-[150px] border rounded-lg">
+                        <i data-lucide="scan" class="w-6 h-6 mb-3"></i>
+                        <p class="font-medium">2,380 sqft</p>
+                        <p class="text-gray-500 text-sm">Property size</p>
+                    </div>
+                </div>
+
+
+
+                <div class="mt-8">
+                    <span class="text-lg font-bold text-gray-900 mb-2">Overview</span>
+
+                    <!-- Status / Dates -->
+                    <div class="flex flex-wrap items-center space-x-2 text-sm text-gray-500 mb-4">
+                        <i data-lucide="circle-dot" class="w-4 h-4 text-green-500"></i>
+                        <span class="font-medium text-gray-700">Active</span>
+                        <span>|</span>
+                        <span>Listed Feb 20, 2025</span>
+                        <span>|</span>
+                        <span>Updated Sep 10</span>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-gray-600 leading-relaxed">
+                        <span class="font-medium">OAKWOOD MANOR,</span> a stunning estate built by award-winning
+                        architect Samuel Rhodes. This 8-acre property in the heart of Napa Valley
+                        blends modern design with timeless elegance. Featuring expansive gardens,
+                        walking trails, and a private vineyard, it offers a seamless connection
+                        between indoor luxury and outdoor beauty. Imported marble, custom woodwork,
+                        and panoramic glass walls make this estate a rare find. Scenic hillside
+                        views complete this unique retreat, perfect for entertaining and relaxation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Agent card -->
+            <div class="w-full lg:w-80 bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center gap-4">
+                    <img src="/images/agent.jpg" alt="Agent" class="w-16 h-16 rounded-full object-cover">
+                    <div>
+                        <p class="font-semibold">Demo Agent</p>
+                        <p class="text-gray-500 text-sm">Demo Realty</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 space-y-2 text-sm text-gray-700">
+                    <p><span class="font-medium">Mobile:</span> (000) 000-0000</p>
+                    <p><span class="font-medium">Office:</span> (000) 000-0000</p>
+                    <p><span class="font-medium">Email:</span> demo@demo.com</p>
+                </div>
+
+                <button class="mt-4 w-full bg-black text-white py-2 rounded-lg font-medium hover:bg-gray-800">
+                    Contact agent
+                </button>
+            </div>
+        </div>
+
+        <!-- Property Details Section -->
+        <div class="border rounded-lg p-6 mt-8 bg-white">
+            <h3 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <i data-lucide="info" class="w-6 h-6 text-brand"></i>
+                Property Details
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 text-gray-800">
+                <div class="space-y-2">
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Project Name:</span> <span
+                            class="ml-2">Upper Vista Luxury Homes On The Muskoka River</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Builder(s):</span> <span
+                            class="ml-2">Evertrust Development</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Occupancy Date:</span> <span
+                            class="ml-2">Fall 2023</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Property Type:</span> <span
+                            class="ml-2">Semi-Detached</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Size:</span> <span class="ml-2">2,380
+                            feet²</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Parking:</span> <span
+                            class="ml-2">Attached 2 garage</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Builder Price:</span> <span
+                            class="ml-2">$1,240,000</span></div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Listing #:</span> <span
+                            class="ml-2">HSE03143</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Data Source:</span> <span
+                            class="ml-2">Exclusive</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Status Change:</span> <span
+                            class="ml-2">2 years ago</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Added to HouseSigma:</span> <span
+                            class="ml-2">2023-08-11</span></div>
+                    <div class="flex"><span class="w-40 font-medium text-gray-500">Updated on:</span> <span
+                            class="ml-2">2023-08-24</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Section -->
+        <div class="mt-8">
+            <span class="text-lg font-bold text-gray-900 mb-2">Address</span>
+            <div class="flex items-center gap-2 mb-4">
+                <span id="address-text" class="text-sm">123 Demo Street, Toronto, ON M1M 1M1</span>
+                <!-- Copy Icon -->
+                <i id="copy-btn" data-lucide="copy"
+                    class="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer"></i>
+            </div>
+
+            <!-- Map -->
+            <div class="w-full h-56 bg-gray-200 rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/600x250" alt="Map" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Price and Mortgage -->
+            <div class="mt-8">
+                <p class="text-2xl font-bold">$5,200<span class="text-lg font-medium">/mo</span></p>
+                <p class="text-sm text-gray-500">Est. mortgage payment based on a $1,240,000 home price.</p>
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="divide-y divide-gray-200 border rounded-lg mt-4">
+                <details class="p-4">
+                    <summary class="cursor-pointer font-medium flex justify-between items-center">
+                        Down payment
+                        <span class="text-gray-500">$248,000 (20%)</span>
+                    </summary>
+                </details>
+                <details class="p-4">
+                    <summary class="cursor-pointer font-medium flex justify-between items-center">
+                        Loan details
+                        <span class="text-gray-500">30-year fixed, 5.5%</span>
+                    </summary>
+                </details>
+                <details class="p-4">
+                    <summary class="cursor-pointer font-medium flex justify-between items-center">
+                        Property tax
+                        <span class="text-gray-500">$520 / month</span>
+                    </summary>
+                </details>
+                <details class="p-4">
+                    <summary class="cursor-pointer font-medium flex justify-between items-center">
+                        HOA fees
+                        <span class="text-gray-400">--</span>
+                    </summary>
+                </details>
+            </div>
+
+            <!-- Total Monthly Payment Section -->
+            <div class="mt-2 p-4 bg-gray-50 border rounded-lg flex flex-col md:flex-row md:items-center md:justify-between">
+                <span class="font-medium text-lg">Total Monthly Payment</span>
+                <span class="text-xl font-medium text-brand">$5,720</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black py-10 mt-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-3 gap-8">
+            <div class="col-span-3 font-medium text-4xl">PIXI</div>
+
+            <!-- Sitemap -->
+            <div class="col-span-1">
+                <h3 class="font-medium mb-4 tracking-wide text-sm text-black/80">Sitemap</h3>
+                <ul class="space-y-1 tracking-wide">
+                    <li><a href="index.html" class="hover:underline ">Home</a></li>
+                    <li><a href="about.html" class="hover:underline">About</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-span-2 md:col-span-1">
+                <h3 class="font-medium mb-4 tracking-wide text-sm text-black/80">Contact</h3>
+                <p class="tracking-wide">Demo Real Estate</p>
+                <p><a class="hover:underline tracking-wide">206-555-9284</a></p>
+                </p>
+            </div>
+
+            <!-- Address -->
+            <div class="col-span-3 md:col-span-1">
+                <h3 class="font-medium mb-4 tracking-wide text-sm text-black/80">Address</h3>
+                <p class="tracking-wide">123 Demo Street</p>
+                <p class="tracking-wide">Toronto, ON M1M 1M1</p>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="max-w-7xl mx-auto px-4 mt-8 text-sm text-gray-600 leading-relaxed tracking-wide">
+            The information provided on this website is for demonstration purposes only and does not represent
+            actual
+            listings or transactions.
+            All property details, prices, images, and availability are fictional and may not reflect real-world
+            data.
+            Measurements, descriptions, and features are approximate and created for sample display only.
+            This template is not intended for use in real estate brokerage, legal, or financial activities.
+            Any resemblance to actual properties, agents, or locations is purely coincidental.
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="max-w-7xl mx-auto px-4 mt-6 flex flex-col md:flex-row items-center justify-between mb-20">
+            <div class="text-gray-600 text-sm mb-4 md:mb-0">
+                &copy; 2025 Demo Real Estate. All rights reserved.
+            </div>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-4">
+                <a href="#" class="border border-black rounded-full p-2 hover:bg-black hover:text-white transition">
+                    <svg aria-label="Instagram" role="img" viewBox="0 0 24 24" class="w-5 h-5">
+                        <!-- outer rounded square -->
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor"
+                            stroke-width="2" />
+                        <!-- lens -->
+                        <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2" />
+                        <!-- flash dot -->
+                        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+                    </svg>
+                </a>
+                <a href="#" class="border border-black rounded-full p-2 hover:bg-black hover:text-white transition">
+                    <!-- Facebook (clean outline style) -->
+                    <svg class="w-5 h-5 transform scale-125" fill="currentColor" viewBox="0 0 32 32">
+                        <path
+                            d="M21.95 5.005l-3.306-.004c-3.206 0-5.277 2.124-5.277 5.415v2.495H10.05v4.515h3.317l-.004 9.575h4.641l.004-9.575h3.806l-.003-4.514h-3.803v-2.117c0-1.018.241-1.533 1.566-1.533l2.366-.001.01-4.256z" />
+                    </svg>
+
+                </a>
+                <a href="#" class="border border-black rounded-full p-2 hover:bg-black hover:text-white transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transform scale-90" fill="currentColor"
+                        class="bi bi-twitter-x" viewBox="0 0 16 16">
+                        <path
+                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('navbar-default').classList.toggle('hidden');
+        });
+    </script>
+
+    <script>
+        lucide.createIcons();
+        // Attach click event AFTER icons are rendered
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const text = document.getElementById('address-text').innerText;
+            console.log(navigator.clipboard);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                // Modern method
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopied();
+                }).catch(err => {
+                    console.error("Clipboard write failed:", err);
+                    fallbackCopy(text);
+                });
+            } else {
+                // Fallback for unsupported cases
+                fallbackCopy(text);
+            }
+        });
+
+        // Fallback using execCommand
+        function fallbackCopy(text) {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed"; // avoid scrolling to bottom
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopied();
+            } catch (err) {
+                console.error("Fallback copy failed:", err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Simple feedback
+        function showCopied() {
+            alert("Address copied to clipboard!");
+        }
+    </script>
+
+    <script src=" https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            delay: 100,
+            once: true,
+        });
+    </script>
+</body>
+
+</html>
