@@ -1,14 +1,17 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); // <-- Detect current page
 
   const navLinks = [
-    { href: "/", label: "Home", active: true },
-    { href: "/about", label: "About", active: false },
-    { href: "/contact", label: "Contact", active: false },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -21,15 +24,12 @@ export default function Navigation() {
           </span>
         </Link>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-800 bg-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-          aria-controls="navbar-default"
-          aria-expanded={menuOpen}
         >
-          <span className="sr-only">Open main menu</span>
           <svg
             className="w-5 h-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -48,28 +48,33 @@ export default function Navigation() {
 
         {/* Menu */}
         <div
-          className={`${
-            menuOpen ? "" : "hidden"
-          } w-full md:block md:w-auto transition-all duration-300 ease-in-out`}
-          id="navbar-default"
+          className={`${menuOpen ? "" : "hidden"} w-full md:block md:w-auto`}
         >
           <ul className="font-medium flex flex-col p-4 mt-4 bg-white rounded-lg shadow-lg md:p-0 md:mt-0 md:flex-row md:space-x-8 md:bg-transparent md:shadow-none">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`block py-2 px-2 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand md:text-white ${
-                    link.active ? "underline" : ""
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)} // close menu on click
+                    className={`block py-2 px-2 rounded md:hover:text-brand md:text-white 
+                      hover:bg-gray-100 md:hover:bg-transparent 
+                      ${
+                        isActive
+                          ? "text-brand underline md:text-brand font-semibold"
+                          : "text-gray-800 md:text-white"
+                      }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
     </nav>
   );
 }
-

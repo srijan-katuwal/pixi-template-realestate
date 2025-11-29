@@ -9,7 +9,13 @@ export default function HomePage() {
   return (
     <AOSProvider>
       <div className="overflow-x-hidden max-w-[100vw]">
-        <HeroSection />
+        <HeroSection
+          backgroundVideo="/videos/real-estate3.mp4"
+          title="Demo Real Estate"
+          subtitle="Discover exclusive properties"
+          height="100vh"
+        />
+
         <FeaturedProperties />
         <RealEstateJourney />
         <LocalCommunities />
