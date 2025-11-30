@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 
 const propertiesData = [
   {
+    slug: "pandion-lot-shelter-island",
     badge: "FOR SALE",
     image: "/house1.jpg",
     address: "Pandion Lot, Unit 3A/B, Shelter Island, NY 11965",
@@ -17,6 +18,7 @@ const propertiesData = [
     details: "6,000 Sq.Ft.",
   },
   {
+    slug: "southampton-village-new-construction",
     badge: "PRIVATE EXCLUSIVE",
     image: "/house2.jpg",
     address: "Southampton Village New Construction",
@@ -24,6 +26,7 @@ const propertiesData = [
     details: "6 Bedrooms • 7.5 Bathrooms • 4,600 Sq.Ft.",
   },
   {
+    slug: "bridgehampton-abutting-reserve",
     badge: "IN CONTRACT",
     image: "/house3.jpg",
     address: "Bridgehampton Abutting Reserve",
@@ -31,6 +34,7 @@ const propertiesData = [
     details: "4 Bedrooms • 4 Bathrooms • 4,000 Sq.Ft.",
   },
   {
+    slug: "bridgehampton-reserve-estate",
     badge: "IN CONTRACT",
     image: "/house4.jpg",
     address: "Bridgehampton Abutting Reserve",
@@ -45,11 +49,13 @@ export default function FeaturedProperties() {
   const swiperRef = useRef(null);
 
   const handleNavigation = (swiper) => {
-    // Update navigation button references
-    if (swiper.params.navigation) {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-    }
+    // Update navigation button references after swiper is fully initialized
+    if (!swiper || !prevRef.current || !nextRef.current) return;
+    if (!swiper.params?.navigation || !swiper.navigation) return;
+
+    swiper.params.navigation.prevEl = prevRef.current;
+    swiper.params.navigation.nextEl = nextRef.current;
+    swiper.navigation.destroy();
     swiper.navigation.init();
     swiper.navigation.update();
   };
@@ -87,14 +93,14 @@ export default function FeaturedProperties() {
           onInit={(swiper) => {
             // Add class to enable transitions after initialization
             setTimeout(() => {
-              swiper.el.classList.add("custom-swiper-initialized");
+              swiper?.el?.classList?.add("custom-swiper-initialized");
             }, 100);
           }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
             setTimeout(() => {
               handleNavigation(swiper);
-            }, 0);
+            }, 100);
           }}
           breakpoints={{
             640: { slidesPerView: 1 },
@@ -107,7 +113,7 @@ export default function FeaturedProperties() {
           <div className="swiper-wrapper">
           {propertiesData.map((slide, index) => (
             <SwiperSlide key={index} className="block">
-                <Link href="/property-detail">
+                <Link href={`/property/${slide.slug}`}>
                   <div className="relative">
                     <span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-2 rounded">
                       {slide.badge}
