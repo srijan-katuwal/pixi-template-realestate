@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import TeamMembers from "@/components/TeamMembers";
+import HeroSection from "@/components/HeroSection";
 
 export default function About() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -1,6 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 const propertiesData = [
   {
@@ -34,48 +40,18 @@ const propertiesData = [
 ];
 
 export default function FeaturedProperties() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const autoplayRef = useRef(null);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const swiperRef = useRef(null);
 
-  const slides = propertiesData;
-
-  const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveSlide((prev) => (prev + 1) % slides.length);
-    setTimeout(() => setIsTransitioning(false), 800);
-  };
-
-  const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsTransitioning(false), 800);
-  };
-
-  useEffect(() => {
-    autoplayRef.current = setInterval(() => {
-      if (!isTransitioning) {
-        setIsTransitioning(true);
-        setActiveSlide((prev) => (prev + 1) % slides.length);
-        setTimeout(() => setIsTransitioning(false), 800);
-      }
-    }, 5000);
-
-    return () => {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
-      }
-    };
-  }, [slides.length]);
-
-  const getVisibleSlides = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
-      visible.push((activeSlide + i) % slides.length);
+  const handleNavigation = (swiper) => {
+    // Update navigation button references
+    if (swiper.params.navigation) {
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
     }
-    return visible;
+    swiper.navigation.init();
+    swiper.navigation.update();
   };
 
   return (
@@ -95,51 +71,68 @@ export default function FeaturedProperties() {
         data-aos-duration="500"
         className="my-4 md:my-12 pb-24 xl:pb-0 xl:h-[600px] 2xl:h-[650px] relative"
       >
-        <div className="overflow-hidden">
-          <div className="flex gap-8 xl:gap-[180px]">
-            {getVisibleSlides().map((slideIndex, displayIndex) => {
-              const slide = slides[slideIndex];
-              const isActive = displayIndex === 0;
-
-              return (
-                <Link
-                  key={`${slideIndex}-${displayIndex}`}
-                  href="/property-detail"
-                  className={`shrink-0 w-full md:w-[calc(50%-2rem)] xl:w-[calc(33.33%-120px)] property-slide transition-all duration-800 ease-in-out ${
-                    isActive ? "xl:!w-[50%]" : "xl:translate-x-[50%]"
-                  }`}
-                >
-                  <div>
-                    <div className="relative">
-                      <span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-2 rounded">
-                        {slide.badge}
-                      </span>
-                      <img
-                        src={slide.image}
-                        className="aspect-[3/2] object-cover w-full"
-                        loading="lazy"
-                        alt={`Property ${slideIndex + 1}`}
-                      />
-                    </div>
-                    <div className="mt-4 text-sm text-gray-700">
-                      {slide.address}
-                    </div>
-                    <div className="text-xl font-semibold mt-2">
-                      {slide.price}
-                    </div>
-                    <div className="text-sm text-gray-500 mt-1">
-                      {slide.details}
-                    </div>
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          loop={true}
+          spaceBetween={32}
+          speed={800}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          navigation={{
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          onInit={(swiper) => {
+            // Add class to enable transitions after initialization
+            setTimeout(() => {
+              swiper.el.classList.add("custom-swiper-initialized");
+            }, 100);
+          }}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            setTimeout(() => {
+              handleNavigation(swiper);
+            }, 0);
+          }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            1024: { slidesPerView: 2 },
+            1280: { slidesPerView: 2.7, spaceBetween: 100 },
+            1650: { slidesPerView: 3, spaceBetween: 180 },
+          }}
+          className="h-full"
+        >
+          <div className="swiper-wrapper">
+          {propertiesData.map((slide, index) => (
+            <SwiperSlide key={index} className="block">
+                <Link href="/property-detail">
+                  <div className="relative">
+                    <span className="absolute top-3 left-3 bg-white/80 text-xs px-2 py-2 rounded">
+                      {slide.badge}
+                    </span>
+                    <img
+                      src={slide.image}
+                      className="aspect-[3/2] object-cover w-full"
+                      loading="lazy"
+                      alt={`Property ${index + 1}`}
+                    />
                   </div>
+                  <div className="mt-4 text-sm text-gray-700">
+                    {slide.address}
+                  </div>
+                  <div className="text-xl font-semibold mt-2">{slide.price}</div>
+                  <div className="text-sm text-gray-500 mt-1">{slide.details}</div>
                 </Link>
-              );
-            })}
+            </SwiperSlide>
+          ))}
           </div>
-        </div>
+        </Swiper>
 
         {/* Navigation Arrows */}
         <button
-          onClick={prevSlide}
+          ref={prevRef}
           className="custom-prev group absolute z-10 bottom-0 rounded-full w-16 h-16 border flex items-center justify-center hover:border-brand cursor-pointer bg-white"
           aria-label="Previous slide"
         >
@@ -162,7 +155,7 @@ export default function FeaturedProperties() {
           </svg>
         </button>
         <button
-          onClick={nextSlide}
+          ref={nextRef}
           className="custom-next group absolute z-10 bottom-0 left-20 rounded-full w-16 h-16 border flex items-center justify-center hover:border-brand cursor-pointer bg-white"
           aria-label="Next slide"
         >
